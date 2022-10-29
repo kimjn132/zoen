@@ -21,7 +21,6 @@ public class ZProductDetailCommand implements ZCommand {
 		request.setAttribute("detail", dto);
 		
 		
-		
 		//String cId = request.getParameter("cId");
 		String cId = (String)session.getAttribute("cId");
 		System.out.println("cId : " + cId);
