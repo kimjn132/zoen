@@ -162,39 +162,82 @@ public class ZDao {
 		} // 
 
 
+		public void order(String cId, String pId, String oPayment) {
+			
+			
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = dataSource.getConnection();
+				
+				String query = "insert into orders (cId, pId, delivery_id, oQuantity, oPayment, oDate) values (?,?,1,1,?,now())";
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setString(1, cId);
+				preparedStatement.setString(2, pId);
+				preparedStatement.setString(3, oPayment);
+		
+				
+				
+				preparedStatement.executeUpdate();
+				
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(preparedStatement != null) preparedStatement.close();
+					if(connection != null) connection.close();
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} //write
+		
+		
+		public ZDto orderView(String seq) {
+			ZDto dto = null;
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			
+			try {
+				connection = dataSource.getConnection();
+				
+				String query = "select * from product where pId = ?";
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setInt(1, Integer.parseInt(seq));
+				resultSet = preparedStatement.executeQuery();
+				
+				if(resultSet.next()) {
+					int pId = resultSet.getInt("pId");
+					String pName = resultSet.getString("pName");
+					String pColor = resultSet.getString("pColor");
+					int pSize = resultSet.getInt("pSize");
+					String pDetail = resultSet.getString("pDetail");
+					int pSaleprice = resultSet.getInt("pSaleprice");
+					String pCategory = resultSet.getString("pCategory");
+					String pBrand = resultSet.getString("pBrand");
+					
+					dto = new ZDto(pId, pName, pColor, pSize, pDetail, pSaleprice, pCategory, pBrand);
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(resultSet != null) resultSet.close();
+					if(preparedStatement != null) preparedStatement.close();
+					if(connection != null) connection.close();
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return dto;
+			
+		} // Content_view
 	
-		
-		
-//		public void order(String cId, int pId) {
-//			String cIdd = "abcd";
-//			int pIdd = 
-//			Connection connection = null;
-//			PreparedStatement preparedStatement = null;
-//			
-//			try {
-//				connection = dataSource.getConnection();
-//				
-//				String query = "insert into orders (cId, pId, delivery_id, oQuantity, oDate) values (cIdd,?,1,1,now())";
-//				preparedStatement = connection.prepareStatement(query);
-//				preparedStatement.setString(1, cId);
-//				preparedStatement.setInt(2, pId);
-//		
-//				
-//				
-//				preparedStatement.executeUpdate();
-//				
-//				
-//			}catch (Exception e) {
-//				e.printStackTrace();
-//			}finally {
-//				try {
-//					if(preparedStatement != null) preparedStatement.close();
-//					if(connection != null) connection.close();
-//					
-//				}catch(Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		} //write
 	
 }

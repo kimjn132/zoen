@@ -10,6 +10,7 @@ public class ZDto {
 	int pId;
 	int delivery_id;
 	int oQuantity;
+	String oPayment;
 	Timestamp oDate;
 
 	// customer
@@ -110,6 +111,14 @@ public class ZDto {
 
 	public void setoQuantity(int oQuantity) {
 		this.oQuantity = oQuantity;
+	}
+
+	public String getoPayment() {
+		return oPayment;
+	}
+
+	public void setoPayment(String oPayment) {
+		this.oPayment = oPayment;
 	}
 
 	public Timestamp getoDate() {
@@ -224,5 +233,5 @@ public class ZDto {
 		this.deliveryCo_name = deliveryCo_name;
 	}
 
-	
+		
 }

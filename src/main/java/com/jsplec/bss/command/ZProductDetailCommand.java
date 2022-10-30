@@ -19,17 +19,17 @@ public class ZProductDetailCommand implements ZCommand {
 		ZDto dto = dao.detail(pId);
 		
 		request.setAttribute("detail", dto);
+		session.setAttribute("PID", pId);
 		
 		
 		
-		//String cId = request.getParameter("cId");
-		String cId = (String)session.getAttribute("cId");
-		System.out.println("cId : " + cId);
+		String cId = request.getParameter("cId");
 		//ZDao dao = new ZDao();
 		ZDto dto2 = dao.customer();
 		
 		request.setAttribute("customer", dto2);
-		System.out.println(cId);
+		
+		session.setAttribute("CID", cId);
 	}
 
 }
