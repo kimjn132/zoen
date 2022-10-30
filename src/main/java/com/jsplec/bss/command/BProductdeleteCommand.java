@@ -1,11 +1,11 @@
-package com.jsplec.bbs.command;
+package com.jsplec.bss.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.bbs.dao.BProductDao;
+import com.jsplec.bss.dao.BProductDao;
 
-public class BProductdeleteCommand implements BCommand {
+public class BProductDeleteCommand implements BCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

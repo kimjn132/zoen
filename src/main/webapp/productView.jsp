@@ -57,7 +57,7 @@
 				<td colspan="2">
 				<button type="submit" class="btn btn-primary">수정</button>
 				<a href="productdelete.do?pId=${productview.pId}" type="submit" class="btn btn-primary">삭제</a>
-				<a href="productlist.do" type="submit" class="btn btn-primary">뒤로</a>
+				<a href="productlistj.do" type="submit" class="btn btn-primary">뒤로</a>
            	 </td>
 			</tr>
 		</table>

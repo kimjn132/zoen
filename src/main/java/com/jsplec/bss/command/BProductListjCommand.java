@@ -1,14 +1,14 @@
-package com.jsplec.bbs.command;
+package com.jsplec.bss.command;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.bbs.dao.BProductDao;
-import com.jsplec.bbs.dto.BProductDto;
+import com.jsplec.bss.dao.BProductDao;
+import com.jsplec.bss.dto.BProductDto;
 
-public class BProductListCommand implements BCommand {
+public class BProductListjCommand implements BCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

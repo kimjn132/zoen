@@ -1,10 +1,10 @@
-package com.jsplec.bbs.command;
+package com.jsplec.bss.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.bbs.dao.BProductDao;
-import com.jsplec.bbs.dto.BProductDto;
+import com.jsplec.bss.dao.BProductDao;
+import com.jsplec.bss.dto.BProductDto;
 
 public class BProductViewCommand implements BCommand {
 

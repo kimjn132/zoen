@@ -1,4 +1,4 @@
-package com.jsplec.bbs.dto;
+package com.jsplec.bss.dto;
 
 
 public class BProductDto {
