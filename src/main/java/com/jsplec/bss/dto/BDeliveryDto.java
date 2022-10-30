@@ -1,4 +1,4 @@
-package com.jsplec.zoen.dto;
+package com.jsplec.bss.dto;
 
 import java.sql.Timestamp;
 

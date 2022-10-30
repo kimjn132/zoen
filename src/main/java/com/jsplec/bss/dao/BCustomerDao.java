@@ -1,4 +1,4 @@
-package com.jsplec.zoen.dao;
+package com.jsplec.bss.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.jsplec.zoen.dto.BCustomerDto;
+import com.jsplec.bss.dto.BCustomerDto;
 
 
 public class BCustomerDao {

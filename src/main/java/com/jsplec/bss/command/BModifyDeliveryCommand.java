@@ -1,11 +1,11 @@
-package com.jsplec.zoen.command;
+package com.jsplec.bss.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.zoen.dao.BCustomerDao;
+import com.jsplec.bss.dao.BCustomerDao;
 
-public class BModifyDeliveryCommand implements BCommand {
+public class BModifyDeliveryCommand implements ZCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
