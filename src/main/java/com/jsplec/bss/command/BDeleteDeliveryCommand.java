@@ -1,11 +1,11 @@
-package com.jsplec.zoen.command;
+package com.jsplec.bss.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.zoen.dao.BDeliveryDao;
+import com.jsplec.bss.dao.BDeliveryDao;
 
-public class BDeleteDeliveryCommand implements BCommand {
+public class BDeleteDeliveryCommand implements ZCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
