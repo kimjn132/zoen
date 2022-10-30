@@ -12,14 +12,14 @@ table.center {
   margin-right: auto;
 }
 </style>
-<title>Insert title here</title>
+<title>공급업체 선택</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
 
+</head>
 <body>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Main</a>
+    <a class="navbar-brand" href="#">업체 리스트</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,7 +27,7 @@ table.center {
       <ul class="navbar-nav">
       
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">발주현황</a>
+          <a class="nav-link active" aria-current="page" href="sorder_main.do">발주현황</a>
         </li>
         
         <li class="nav-item">
@@ -43,30 +43,27 @@ table.center {
         </div>
   </div>
 </nav>
-
-
 <div class="bg-white" style="text-align:center">
-	<h1>진행중인 발주 현황</h1>
+<h2>공급업체 선택</h2>
 	<table class="table table-dark table-hover center" border="1" style="width:70%">
 
 		<tr>
-			<th>발주번호</th><th>브랜드</th><th>상품명</th><th>사이즈</th><th>수량</th><th>발주일</th>
+			<th>거래처 번호</th><th>거래처명</th><th>전화번호</th><th>이메일</th>
 		</tr>
-		<c:forEach items="${sorder_list}" var="dto">
+		<c:forEach items="${availableS}" var="ava">
 			<tr>
-				<td>${dto.soId}</td>
-				<td>${dto.pBrand}</td>
-				<td>${dto.pName}</td>
-				<td>${dto.pSize}</td>
-				<td>${dto.soQuantity}</td>
-				<td>${dto.soSenddate}</td>
+				<td>${ava.sId}</td>
+				<td><a href="sorder_place_view.do?sName=${ava.sName}">${ava.sName}</a></td>
+				<td>${ava.sPhone}</td>
+				<td>${ava.sEmail}</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="4"><a href="supplier_add_view.do">추가</a></td>
+		</tr>
 	</table>
+
 </div>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 </body>

@@ -24,7 +24,7 @@ public class PDao {
 	
 	}
 	
-	public ArrayList<PDto>productListCheck(){
+	public ArrayList<PDto>productListCheck(String sName){
 		ArrayList<PDto> dtos = new ArrayList<PDto>();
 		Connection connection = null;
 		PreparedStatement ps = null;
@@ -32,7 +32,7 @@ public class PDao {
 		
 		try {
 			connection = dataSource.getConnection();
-			String query = "select pId, pBrand, pName, pStock from product order by pId";
+			String query = "select pId, pBrand, pName, pStock from product where pBrand = '" + sName + "' order by pId";
 			ps = connection.prepareStatement(query);
 			rs = ps.executeQuery();
 			

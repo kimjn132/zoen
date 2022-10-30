@@ -18,6 +18,7 @@ import com.jsplec.bbs.command.SDeleteCommand;
 import com.jsplec.bbs.command.SListCommand;
 import com.jsplec.bbs.command.SModifyCommand;
 import com.jsplec.bbs.command.SOListCommand;
+import com.jsplec.bbs.command.SOSListCommand;
 
 
 
@@ -111,6 +112,12 @@ public class FrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "sorder_main.jsp";
 			break;
+			
+		case ("/available_supplier.do"):
+			command = new SOSListCommand();
+			command.execute(request, response);
+			viewPage = "available_supplier.jsp";
+		break;
 		
 		case ("/sorder_place_view.do"):
 			pcommand = new PListCommand();
@@ -118,15 +125,13 @@ public class FrontController extends HttpServlet {
 			viewPage = "sorder_place.jsp";
 			break;
 			
+		case ("/sorder_place.do"):
+			
 			
 		}
-			
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
-
-		
-		
 		
 	}
 	

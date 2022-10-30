@@ -163,6 +163,39 @@ public class SDao {
 		}
 	}
 	
+	public ArrayList<String>availableS(){
+		ArrayList<String> dto = new ArrayList<String>();
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			String query = "select sName from supplier where sEnddate is null";
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				String sName = rs.getString("sName");
+				
+				dto.add(sName);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(ps != null) ps.close();
+				if(connection != null) connection.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
+	
 //	public void deleteSupplier(int sId) {
 //		PreparedStatement ps = null;
 //		Connection connection = null;

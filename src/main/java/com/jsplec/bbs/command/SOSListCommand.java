@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.bbs.component.SOrderList;
 import com.jsplec.bbs.dao.SDao;
-import com.jsplec.bbs.dao.SODao;
+import com.jsplec.bbs.dto.SDto;
 
-public class SOListCommand implements SCommand {
+public class SOSListCommand implements SCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		SODao sodao = new SODao();
-		ArrayList<SOrderList>dtos = sodao.sOrderList();
-		request.setAttribute("sorder_list", dtos);
-				
+		SDao dao = new SDao();
+		ArrayList<SDto> dtos = dao.supplierList();
+		request.setAttribute("availableS", dtos);
 	}
 
 }

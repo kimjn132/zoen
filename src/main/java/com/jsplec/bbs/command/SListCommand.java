@@ -15,7 +15,6 @@ public class SListCommand implements SCommand {
 		SDao dao = new SDao();
 		ArrayList<SDto> dtos = dao.supplierList();
 		request.setAttribute("supplier_list", dtos);
-		
 	}
 
 }
