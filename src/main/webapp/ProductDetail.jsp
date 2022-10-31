@@ -103,11 +103,11 @@
 				
 				
 					<form action="detailOrder.do" method="post">
-						<input type="hidden" name="pId" value="${detail.pId}">
-						<input type="hidden" name="cId" value="${customer.cId}">
+						<input type="hidden" name="pId" value="<%=session.getAttribute("PID") %>">
+						<input type="hidden" name="cId" value="<%=session.getAttribute("CID") %>">
 						
 						<h2>${detail.pBrand}</h2>
-						<p>상품번호 ${detail.pId}</p>
+						<p>상품번호 <%=session.getAttribute("PID") %></p>
 						<ul class="icon-list ps-0">
 							<br>
 							<li class="d-flex align-items-start mb-1">사이즈:
@@ -115,6 +115,7 @@
 
 
 							<br>
+							
 							<li class="d-flex align-items-start mb-1">색상:
 								${detail.pColor}</li>
 							<br>

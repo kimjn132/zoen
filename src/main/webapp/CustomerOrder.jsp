@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!doctype html>
 <html>
@@ -103,46 +103,45 @@
 
 	<div class="container">
 		<main>
+			<form action="order.do" method="post">
 			<div class="py-5 text-center">
 				<h2>결제창</h2>
 			</div>
-			
-	<div class="row g-5">
-      <div class="col-md-5 col-lg-4 order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">결제 상품 리스트</span>
-          <span class="badge bg-primary rounded-pill">1</span>
-        </h4>
-        
 
-	<form action="order.do" method="post">
-        <ul class="list-group mb-3">
-         
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">${detail.pId} ${detail.pName}</h6>
-              <small class="text-muted">${detail.pDetail}</small>
-            </div>
-            <span class="text-muted">${detail.pSaleprice}</span>
-          </li>
-        
-          <li class="list-group-item d-flex justify-content-between">
-            <span>주문합계</span>
-            <strong>${detail.pSaleprice}</strong>
-          </li>
-        </ul>
+			<div class="row g-5">
+				<div class="col-md-5 col-lg-4 order-md-last">
+					<h4 class="d-flex justify-content-between align-items-center mb-3">
+						<span class="text-primary">결제 상품 리스트</span> <span
+							class="badge bg-primary rounded-pill">1</span>
+					</h4>
 
-      </div>
-    
 
-			<div class="col-md-7 col-lg-8">
-				<h4 class="mb-3">주문자 정보</h4>
-				
+					
+						<ul class="list-group mb-3">
+
+							<li class="list-group-item d-flex justify-content-between lh-sm">
+								<div>
+									<h6 class="my-0">${detail.pId}  ${detail.pName}</h6>
+									<small class="text-muted">${detail.pDetail}</small>
+								</div> <span class="text-muted">${detail.pSaleprice}</span>
+							</li>
+
+							<li class="list-group-item d-flex justify-content-between">
+								<span>주문합계</span> <strong>${detail.pSaleprice}</strong>
+							</li>
+						</ul>
+				</div>
+
+
+				<div class="col-md-7 col-lg-8">
+					<h4 class="mb-3">주문자 정보</h4>
+
 					<div class="col-12">
-						
-						
-						<label for="firstName" class="form-label">이름</label> 
-							<input type="text" class="form-control" id="firstName" value="${customer.cId}">
+
+
+						<label for="firstName" class="form-label">이름</label> <input
+							type="text" class="form-control" id="firstName"
+							value="<%=session.getAttribute("CID") %>">
 						<div class="invalid-feedback"></div>
 					</div>
 
@@ -150,15 +149,17 @@
 					<div class="col-12">
 						<label for="phone" class="form-label">휴대폰번호</label>
 						<div class="input-group has-validation">
-							<input type="text" class="form-control" id="phone" value="${customer.cPhone}">
-						<div class="invalid-feedback"></div>
+							<input type="text" class="form-control" id="phone"
+								value="${customer.cPhone}">
+							<div class="invalid-feedback"></div>
 						</div>
 					</div>
 
 
 					<div class="col-12">
-						<label for="address" class="form-label">주소</label> 
-							<input type="text" class="form-control" id="address" value="${customer.cAddress}">
+						<label for="address" class="form-label">주소</label> <input
+							type="text" class="form-control" id="address"
+							value="${customer.cAddress}">
 						<div class="invalid-feedback"></div>
 					</div>
 
@@ -171,27 +172,26 @@
 
 
 
-
+					<%-- radio: name="oPayment" 이렇게 command 변수와 맞춰야 됨 --%>
 					<h4 class="mb-3">결제방법</h4>
 
 					<div class="my-3">
 						<div class="form-check">
-							<input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required> 
-							<label class="form-check-label" for="credit">신용카드</label>
+							<input id="credit" name="oPayment" type="radio"
+								class="form-check-input" checked="checked" value="신용카드">
+							신용카드
 						</div>
-						
-						
+
+
 						<div class="form-check">
-							<input id="debit" name="paymentMethod" type="radio"
-								class="form-check-input" required> <label
-								class="form-check-label" for="debit">체크카드</label>
+							<input id="debit" name="oPayment" type="radio"
+								class="form-check-input" value="체크카드">체크카드
 						</div>
-						
-						
+
+
 						<div class="form-check">
-							<input id="deposit without a bankbook" name="paymentMethod"
-								type="radio" class="form-check-input" required> <label
-								class="form-check-label" for="deposit without a bankbook">무통장입금</label>
+							<input id="deposit without a bankbook" name="oPayment"
+								type="radio" class="form-check-input" value="무통장입금">무통장입금
 						</div>
 					</div>
 
@@ -200,24 +200,25 @@
 					<hr class="my-4">
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="agree">
-						<label class="agree" for="agree">회원 본인은 구매조건, 주문 내용 확인 및 결제에 동의합니다.</label>
+						<label class="agree" for="agree">회원 본인은 구매조건, 주문 내용 확인 및
+							결제에 동의합니다.</label>
 					</div>
 					<br>
-					
+
 					<button class="w-100 btn btn-primary btn-lg" type="submit">결제하기</button>
 
-				
+
+				</div>
 			</div>
 			</form>
-	</div>
-	</main>
-	
-	
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
+		</main>
 
-	<script src="form-validation.js"></script>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+			crossorigin="anonymous"></script>
+
+		<script src="form-validation.js"></script>
 </body>
 </html>

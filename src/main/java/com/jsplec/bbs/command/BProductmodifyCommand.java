@@ -1,11 +1,14 @@
+
 package com.jsplec.bbs.command;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.jsplec.bbs.dao.BProductDao;
 
-public class BProductmodifyCommand implements BCommand {
+public class BProductModifyCommand implements ZCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

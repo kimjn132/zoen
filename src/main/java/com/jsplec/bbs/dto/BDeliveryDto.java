@@ -1,4 +1,6 @@
-package com.jsplec.bss.dto;
+
+package com.jsplec.bbs.dto;
+
 
 import java.sql.Timestamp;
 
