@@ -1,4 +1,4 @@
-package com.jsplec.bss.command;
+package com.jsplec.bbs.command;
 
 import java.util.ArrayList;
 
@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.jsplec.bss.dao.BDeliveryDao;
-import com.jsplec.bss.dto.BDeliveryDto;
+import com.jsplec.bbs.dao.BDeliveryDao;
+import com.jsplec.bbs.dto.BDeliveryDto;
 
 public class BContentDeliveryCommand implements ZCommand {
 

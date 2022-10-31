@@ -1,4 +1,4 @@
-package com.jsplec.bss.homecontroller;
+package com.jsplec.bbs.homecontroller;
 
 import java.io.IOException;
 
@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.jsplec.bss.command.BContentCustomerCommand;
-import com.jsplec.bss.command.BContentDeliveryCommand;
-import com.jsplec.bss.command.BDeleteCustomerCommand;
-import com.jsplec.bss.command.BDeleteDeliveryCommand;
-import com.jsplec.bss.command.BInsertCustomerCommand;
-import com.jsplec.bss.command.BInsertDeliveryCommand;
-import com.jsplec.bss.command.BLoginCommand;
-import com.jsplec.bss.command.BModifyCustomerCommand;
-import com.jsplec.bss.command.BModifyDeliveryCommand;
-import com.jsplec.bss.command.ZCommand;
-import com.jsplec.bss.command.ZCustomerCommand;
-import com.jsplec.bss.command.ZOrderCommand;
-import com.jsplec.bss.command.ZProductDetailCommand;
-import com.jsplec.bss.command.ZProductListCommand;
+import com.jsplec.bbs.command.BContentCustomerCommand;
+import com.jsplec.bbs.command.BContentDeliveryCommand;
+import com.jsplec.bbs.command.BDeleteCustomerCommand;
+import com.jsplec.bbs.command.BDeleteDeliveryCommand;
+import com.jsplec.bbs.command.BInsertCustomerCommand;
+import com.jsplec.bbs.command.BInsertDeliveryCommand;
+import com.jsplec.bbs.command.BLoginCommand;
+import com.jsplec.bbs.command.BModifyCustomerCommand;
+import com.jsplec.bbs.command.BModifyDeliveryCommand;
+import com.jsplec.bbs.command.ZCommand;
+import com.jsplec.bbs.command.ZCustomerCommand;
+import com.jsplec.bbs.command.ZOrderCommand;
+import com.jsplec.bbs.command.ZOrderRecentView;
+import com.jsplec.bbs.command.ZProductDetailCommand;
+import com.jsplec.bbs.command.ZProductListCommand;
 
 /**
  * Servlet implementation class ZFrontController
@@ -74,10 +75,15 @@ public class ZFrontController extends HttpServlet {
 		String com = uri.substring(conPath.length());
 
 		switch (com) {
+		case ("/login.do"):
+			command = new BLoginCommand();
+			command.execute(request, response);
+			viewPage = "list.do";
+			break;
 		case ("/list.do"):
 			command = new ZProductListCommand();
 			command.execute(request, response);
-			viewPage = "ProductList.jsp";
+			viewPage = "Home.jsp";
 			break;
 		case ("/detail.do"):
 			command = new ZProductDetailCommand();
@@ -94,18 +100,13 @@ public class ZFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "OrderDone.jsp";
 			break;
-		// 전체 내용 검색
-		case ("/login.do"):
-			System.out.println("doLogin");
-			command = new BLoginCommand();
-			command.execute(request, response);
-			viewPage = "Home.jsp";
-			break;
-		/*
-		 * // 입력 화면 띄우기 case("/write_viewCustomer.do"):
-		 * System.out.println("doViewWriteCustomer"); viewPage =
-		 * "write_viewCustomer.jsp"; break;
-		 */
+//		case ("/orderRecentView.do"):
+//			command = new ZOrderCommand();
+//			command.execute(request, response);
+//			viewPage = "OrderDone.jsp";
+//			break;
+		
+			
 		// 입력 하기
 		case ("/insertCustomer.do"):
 			System.out.println("doWriteCustomer");

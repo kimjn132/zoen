@@ -1,4 +1,4 @@
-package com.jsplec.bss.dao;
+package com.jsplec.bbs.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +10,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.jsplec.bss.dto.BCustomerDto;
+import com.jsplec.bbs.dto.BDeliveryDto;
 
 
-public class BCustomerDao {
+public class BDeliveryDao {
 
 	DataSource dataSource;
 	
-	public BCustomerDao() {
+	public BDeliveryDao() {
 		try {
 			Context context = new InitialContext();
 			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/zoen");
@@ -26,44 +26,10 @@ public class BCustomerDao {
 		}
 	}
 	// Login
-	public boolean login(String scId, String scPw){
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		BCustomerDto dto = null;
-		boolean Result=false;
-		try {
-			connection = dataSource.getConnection();
-			
-			String query = "select cPw from customer where cId=?";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, scId);
-			resultSet = preparedStatement.executeQuery();
-			System.out.println(query);
-			if(resultSet.next()) {
-				String cPw = resultSet.getString("cPw");
-				Result = scPw.equals(cPw);
-				System.out.println("cPw = " + cPw);
-				System.out.println("Result = " + Result);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(resultSet != null) resultSet.close();
-				if(preparedStatement != null) preparedStatement.close();
-				if(connection != null) connection.close();
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return Result;
-	} // Content
 		
 	// 전체 검색
-	public ArrayList<BCustomerDto> List(){
-		ArrayList<BCustomerDto> dtos = new ArrayList<BCustomerDto>();
+	public ArrayList<BDeliveryDto> List(){
+		ArrayList<BDeliveryDto> dtos = new ArrayList<BDeliveryDto>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -71,19 +37,19 @@ public class BCustomerDao {
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "select cId, cPw, cAddress, cEmail, cPhone, cJoinDate, cDeleteDate from customer";
+			String query = "select * from delivery";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
+				int delivery_id = Integer.parseInt(resultSet.getString("delivery_id"));
+				int deliveryCo_id = Integer.parseInt(resultSet.getString("deliveryCo_id"));
+				int pId = Integer.parseInt(resultSet.getString("pId"));
 				String cId = resultSet.getString("cId");
-				String cPw = resultSet.getString("cPw");
-				String cAddress = resultSet.getString("cAddress");
-				String cEmail = resultSet.getString("cEmail");
-				String cPhone = resultSet.getString("cPhone");
-				Timestamp cJoinDate = resultSet.getTimestamp("cJOinDate");
-				Timestamp cDeleteDate = resultSet.getTimestamp("cDeleteDate");
-				BCustomerDto dto = new BCustomerDto(cId, cPw, cAddress, cEmail, cPhone, cJoinDate, cDeleteDate);
+				int oId = Integer.parseInt(resultSet.getString("oId"));
+				Timestamp delivery_initdate = resultSet.getTimestamp("delivery_initdate");
+				Timestamp delivery_enddate = resultSet.getTimestamp("delivery_enddate");
+				BDeliveryDto dto = new BDeliveryDto(delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate);
 				dtos.add(dto);
 			}
 			
@@ -102,29 +68,43 @@ public class BCustomerDao {
 		return dtos;
 	} // list
 
-	// 전체 검색
-	public BCustomerDto contentCustomerView(String scId){
+	// 전체 일부 검색
+	public ArrayList<BDeliveryDto> contentDeliveryView(String scId){
+		ArrayList<BDeliveryDto> dtos = new ArrayList<BDeliveryDto>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		BCustomerDto dto = null; 
+		BDeliveryDto dto = null; 
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "select cId, cPw, cAddress, cEmail, cPhone, cJoinDate, cDeleteDate from customer where cId=?";
+			String query = "select delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate from delivery where cId='?' ";
+			System.out.println(query);
+			System.out.println("scId : " +scId+":");
+					
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, scId);
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
+				int delivery_id = resultSet.getInt("delivery_id");
+				int deliveryCo_id = resultSet.getInt("deliveryCo_id");
+				int pId = resultSet.getInt("pId");
 				String cId = resultSet.getString("cId");
-				String cPw = resultSet.getString("cPw");
-				String cAddress = resultSet.getString("cAddress");
-				String cEmail = resultSet.getString("cEmail");
-				String cPhone = resultSet.getString("cPhone");
-				Timestamp cJoinDate = resultSet.getTimestamp("cJoinDate");
-				Timestamp cDeleteDate = resultSet.getTimestamp("cDeleteDate");
-				dto = new BCustomerDto(cId, cPw, cAddress, cEmail, cPhone, cJoinDate, cDeleteDate);
+				int oId = resultSet.getInt("oId");
+				Timestamp delivery_initdate = resultSet.getTimestamp("delivery_initdate");
+				Timestamp delivery_enddate = resultSet.getTimestamp("delivery_enddate");
+				
+				System.out.println(delivery_id);
+				System.out.println(deliveryCo_id);
+				System.out.println(pId);
+				System.out.println(cId);
+				System.out.println(oId);
+				System.out.println(delivery_initdate);
+				System.out.println(delivery_enddate);
+				
+				dto = new BDeliveryDto(delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate);
+				dtos.add(dto);
 			}
 			
 		}catch (Exception e) {
@@ -139,7 +119,7 @@ public class BCustomerDao {
 				e.printStackTrace();
 			}
 		}
-		return dto;
+		return dtos;
 	} // Content
 	
 	public void write(String cId, String cPw, String cAddress, String cEmail, String cPhone) {
@@ -149,7 +129,7 @@ public class BCustomerDao {
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "insert into customer (cId, cPw, cAddress, cEmail, cPhone, cJoinDate) values (?,?,?,?,?,now())";
+			String query = "insert into delivery (cId, cPw, cAddress, cEmail, cPhone, cJoinDate) values (?,?,?,?,?,now())";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, cId);
 			preparedStatement.setString(2, cPw);
@@ -172,20 +152,23 @@ public class BCustomerDao {
 	} //write
 	
 	
-	public void modifyCustomer(String cId,String cPw, String cAddress, String cEmail, String cPhone) {
+	public void modifyDelivery(int delivery_id, int deliveryCo_id, int pId, String cId, int oId, Timestamp delivery_initdate, Timestamp delivery_enddate) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "update customer set cPw=?, cAddress=?, cEmail=?, cPhone=?, cJoinDate=now() where cId=?";
+			String query = "update delivery set deliveryCo_id=?, pId=?, cId=?, oId=?, delivery_initdate=?, delivery_enddate=? where delivery_id=?";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, cPw);
-			preparedStatement.setString(2, cAddress);
-			preparedStatement.setString(3, cEmail);
-			preparedStatement.setString(4, cPhone);
-			preparedStatement.setString(5, cId);
+			
+			preparedStatement.setInt(1, deliveryCo_id);
+			preparedStatement.setInt(2, pId);
+			preparedStatement.setString(3, cId);
+			preparedStatement.setInt(4, oId);
+			preparedStatement.setTimestamp(5, delivery_initdate);
+			preparedStatement.setTimestamp(6, delivery_enddate);
+			preparedStatement.setInt(7, delivery_id);
 			preparedStatement.executeUpdate();
 			
 			
@@ -203,18 +186,18 @@ public class BCustomerDao {
 	} //modify
 	
 	
-	public void deleteCustomer(String cId) {
+	public void deleteDelivery(int delivery_id) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			connection = dataSource.getConnection();
-			String query = "update from customer set cDeleteDate=now() where cId=? ";
+			String query = "update from delivery set delivery_enddate=now() where delivery_id=? ";
 			preparedStatement = connection.prepareStatement(query);
 
-			preparedStatement.setString(1, cId);
+			preparedStatement.setInt(1, delivery_id);
 			preparedStatement.executeUpdate();
-			System.out.println(cId);
+			System.out.println(delivery_id);
 			System.out.println(query);
 			
 		}catch (Exception e) {

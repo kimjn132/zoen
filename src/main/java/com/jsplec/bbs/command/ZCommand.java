@@ -1,4 +1,4 @@
-package com.jsplec.bss.command;
+package com.jsplec.bbs.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

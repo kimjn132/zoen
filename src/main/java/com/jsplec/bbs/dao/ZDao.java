@@ -1,4 +1,4 @@
-package com.jsplec.bss.dao;
+package com.jsplec.bbs.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.servlet.SessionTrackingMode;
 import javax.sql.DataSource;
 
-import com.jsplec.bss.dto.ZDto;
+import com.jsplec.bbs.dto.ZDto;
 import com.mysql.cj.Session;
 
 public class ZDao {
@@ -118,7 +118,7 @@ public class ZDao {
 	
 		
 		
-		public ZDto customer() {
+		public ZDto customer(String sSeq) {
 			
 			ZDto dto = null;
 			Connection connection = null;
@@ -128,9 +128,9 @@ public class ZDao {
 			try {
 				connection = dataSource.getConnection();
 				
-				String query = "select cId, cAddress, cEmail, cPhone from customer where cId = 'abcd' ";
+				String query = "select cId, cAddress, cEmail, cPhone from customer where cId = ? ";
 				preparedStatement = connection.prepareStatement(query);
-				
+				preparedStatement.setString(1, sSeq);
 				resultSet = preparedStatement.executeQuery();
 				
 				if(resultSet.next()) {
@@ -196,7 +196,7 @@ public class ZDao {
 		} //write
 		
 		
-		public ZDto orderView(String seq) {
+		public ZDto orderRecentView(String seq) {
 			ZDto dto = null;
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
@@ -205,23 +205,23 @@ public class ZDao {
 			try {
 				connection = dataSource.getConnection();
 				
-				String query = "select * from product where pId = ?";
-				preparedStatement = connection.prepareStatement(query);
-				preparedStatement.setInt(1, Integer.parseInt(seq));
+				String query1 = "select o.oId, c.cId, p.pId, p.pName from orders o, product p, customer c ";
+				String query2 = "where o.cId = ? and o.cId=c.cId and p.pId=o.pId order by oDate desc limit 1 ";
+				preparedStatement = connection.prepareStatement(query1+query2);
+				preparedStatement.setString(1, seq);
 				resultSet = preparedStatement.executeQuery();
 				
 				if(resultSet.next()) {
+					
+					String cId = resultSet.getString("cId");
 					int pId = resultSet.getInt("pId");
 					String pName = resultSet.getString("pName");
-					String pColor = resultSet.getString("pColor");
-					int pSize = resultSet.getInt("pSize");
-					String pDetail = resultSet.getString("pDetail");
-					int pSaleprice = resultSet.getInt("pSaleprice");
-					String pCategory = resultSet.getString("pCategory");
-					String pBrand = resultSet.getString("pBrand");
 					
-					dto = new ZDto(pId, pName, pColor, pSize, pDetail, pSaleprice, pCategory, pBrand);
+					
+					dto = new ZDto(cId, pId, pName);
+					System.out.println("pName:"+ pName);
 				}
+				
 				
 			}catch (Exception e) {
 				e.printStackTrace();

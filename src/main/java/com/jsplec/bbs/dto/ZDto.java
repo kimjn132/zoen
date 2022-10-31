@@ -1,4 +1,4 @@
-package com.jsplec.bss.dto;
+package com.jsplec.bbs.dto;
 
 import java.sql.Timestamp;
 
@@ -71,6 +71,15 @@ public class ZDto {
 		this.cAddress = cAddress;
 		this.cEmail = cEmail;
 		this.cPhone = cPhone;
+	}
+	
+	
+
+	public ZDto(String cId, int pId, String pName) {
+		super();
+		this.cId = cId;
+		this.pId = pId;
+		this.pName = pName;
 	}
 
 	public int getoId() {
