@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import com.jsplec.bbs.command.DContentCommand;
+import com.jsplec.bbs.command.DDeleteCommand;
+import com.jsplec.bbs.command.DListCommand;
+import com.jsplec.bbs.command.DModifyCommand;
+import com.jsplec.bbs.command.DWriteCommand;
 import com.jsplec.bss.command.BContentCustomerCommand;
 import com.jsplec.bss.command.BContentDeliveryCommand;
 import com.jsplec.bss.command.BDeleteCustomerCommand;
@@ -79,7 +83,8 @@ public class ZFrontController extends HttpServlet {
 		String com = uri.substring(conPath.length());
 
 		switch (com) {
-		case ("/list.do"):
+	//주현---------
+  case ("/list.do"):
 			command = new ZProductListCommand();
 			command.execute(request, response);
 			viewPage = "ProductList.jsp";
@@ -106,6 +111,11 @@ public class ZFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "Home.jsp";
 			break;
+      
+//주현------------
+
+
+//상혁 --------------
 		/*
 		 * // 입력 화면 띄우기 case("/write_viewCustomer.do"):
 		 * System.out.println("doViewWriteCustomer"); viewPage =
@@ -167,7 +177,10 @@ public class ZFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "listCustomer.do";
 			break;
-			
+      
+ //상혁----------
+
+		//상준	-------
 		case("/productlistj.do"): 
 			command = new BProductListjCommand();
 			command.execute(request, response);
@@ -198,6 +211,61 @@ public class ZFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage="productlistj.do";	
 			break;
+//상준-------
+		
+			
+			
+			
+			//성연-------
+		case("/deliveryCo_list.do"):
+			command = new DListCommand();
+			command.execute(request, response);
+			viewPage = "deliveryCo_list.jsp";
+			break;
+		
+		//배송업체 등록 화면 띄우기
+		case("/deliveryCo_writeView.do"):
+			viewPage = "deliveryCo_writeView.jsp";
+			break;
+			
+		//등록 완료 화면 띄우기
+		case("/deliveryCo_registrationView.do"):
+			viewPage = "deliveryCo_registrationView.jsp";
+			break;
+			
+		//입력하기
+		case("/deliveryCo_write.do"): 
+			command = new DWriteCommand();
+			command.execute(request, response);
+			viewPage="deliveryCo_registrationView.do";
+			//viewPage="deliveryCo_list.do";
+			break;
+			
+		//내용보기
+		case("/deliveryCo_contentView.do"): 
+			command = new DContentCommand();
+			command.execute(request, response);
+			viewPage="deliveryCo_contentView.jsp";
+			break;
+			
+		//삭제하기
+		case("/deliveryCo_delete.do"): 
+			command = new DDeleteCommand();
+			command.execute(request, response);
+			viewPage="deliveryCo_list.do";
+			break;
+		
+		//수정하기
+		case("/deliveryCo_modify.do"): 
+			command = new DModifyCommand();
+			command.execute(request, response);
+			viewPage="deliveryCo_list.do";
+			break;
+//성연 end --------------
+			
+			
+			
+
 
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
