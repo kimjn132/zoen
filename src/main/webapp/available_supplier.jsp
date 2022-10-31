@@ -19,7 +19,7 @@ table.center {
 <body>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">업체 리스트</a>
+    <a class="navbar-brand" href="#">업체 선택</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,11 +27,11 @@ table.center {
       <ul class="navbar-nav">
       
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="sorder_main.do">발주현황</a>
+          <a class="nav-link" href="sorder_main.do">발주현황</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="available_supplier.do">발주신청</a>
+          <a class="nav-link active" aria-current="page" href="available_supplier.do">발주신청</a>
         </li>
 
             
