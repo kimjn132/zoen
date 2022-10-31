@@ -9,6 +9,7 @@ public class BDeleteDeliveryCommand implements ZCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("delivery_id :"+request.getParameter("delivery_id")+":");
 		int delivery_id = Integer.parseInt(request.getParameter("delivery_id"));
 		BDeliveryDao dao = new BDeliveryDao();
 		dao.deleteDelivery(delivery_id);

@@ -25,7 +25,7 @@ public class BCustomerDao {
 			e.printStackTrace();
 		}
 	}
-	// Login
+	// Login(고객과 관리자 로그인)
 	public boolean login(String scId, String scPw){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -44,8 +44,9 @@ public class BCustomerDao {
 				String cPw = resultSet.getString("cPw");
 				Result = scPw.equals(cPw);
 				System.out.println("cPw = " + cPw);
-				System.out.println("Result = " + Result);
+			
 			}
+			System.out.println("login Result = " + Result);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -59,9 +60,9 @@ public class BCustomerDao {
 			}
 		}
 		return Result;
-	} // Content
+	} // Login
 		
-	// 전체 검색
+	// 전체 고객 검색(관리자 페이지)
 	public ArrayList<BCustomerDto> List(){
 		ArrayList<BCustomerDto> dtos = new ArrayList<BCustomerDto>();
 		Connection connection = null;
@@ -102,7 +103,7 @@ public class BCustomerDao {
 		return dtos;
 	} // list
 
-	// 전체 검색
+	// 고객Id(cID)로 검색
 	public BCustomerDto contentCustomerView(String scId){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -116,7 +117,7 @@ public class BCustomerDao {
 			preparedStatement.setString(1, scId);
 			resultSet = preparedStatement.executeQuery();
 			
-			while(resultSet.next()) {
+			if(resultSet.next()) {
 				String cId = resultSet.getString("cId");
 				String cPw = resultSet.getString("cPw");
 				String cAddress = resultSet.getString("cAddress");
@@ -140,8 +141,10 @@ public class BCustomerDao {
 			}
 		}
 		return dto;
-	} // Content
+	} // contentCustomerView
 	
+	
+	// 고객 ID 등록
 	public void write(String cId, String cPw, String cAddress, String cEmail, String cPhone) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -171,7 +174,7 @@ public class BCustomerDao {
 		}
 	} //write
 	
-	
+	// 고객 ID 수정(myPage가 없어서 안씀)
 	public void modifyCustomer(String cId,String cPw, String cAddress, String cEmail, String cPhone) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -200,9 +203,9 @@ public class BCustomerDao {
 				e.printStackTrace();
 			}
 		}
-	} //modify
+	} //modifyCustomer
 	
-	
+	// 고객 삭제(고객Id로 고객삭제날짜 추가)
 	public void deleteCustomer(String cId) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -228,7 +231,7 @@ public class BCustomerDao {
 				e.printStackTrace();
 			}
 		}
-	} //delete
+	} //deleteCustomer
 	
 	
 	

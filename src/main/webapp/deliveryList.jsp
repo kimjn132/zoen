@@ -18,17 +18,18 @@
 		</tr>
 		<c:forEach items="${delivery_list}" var="dto">
 			<tr>
-				<td>${dto.delivery_id}</td>
+				<td><a href=content_viewDeliveryId.do?delivery_id=${dto.delivery_id}>${dto.delivery_id}</a></td>
 				<td>${dto.deliveryCo_id}</td>
-				<td><a href="content_Deliveryview.do?bId=${dto.delivery_id}">${dto.pId}</a></td>
+				<td>${dto.pId}</td>
 				<td>${dto.cId}</td>
 				<td>${dto.oId}</td>
 				<td>${dto.delivery_initdate}</td>
 				<td>${dto.delivery_enddate}</td>
+				<td><a href=deleteDelivery.do?delivery_id=${dto.delivery_id}>삭제</a></td> 
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="5"><a href="write_Deliveryview.do">글작성</a></td>
+			<td colspan="5"><a href="writeDelivery.jsp">글작성</a></td>
 		</tr>
 	</table>
 </body>

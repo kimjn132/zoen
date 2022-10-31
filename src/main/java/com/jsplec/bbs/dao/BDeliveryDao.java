@@ -78,9 +78,9 @@ public class BDeliveryDao {
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "select delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate from delivery where cId='?' ";
+			String query = "select delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate from delivery where cId= ? ";
 			System.out.println(query);
-			System.out.println("scId : " +scId+":");
+			System.out.println("scId :" +scId+":");
 					
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, scId);
@@ -121,21 +121,76 @@ public class BDeliveryDao {
 		}
 		return dtos;
 	} // Content
+
+	// 전체 일부 검색
+	public BDeliveryDto contentDeliveryViewId(int cDeliveryId){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		BDeliveryDto dto = null; 
+		try {
+			connection = dataSource.getConnection();
+			
+			String query = "select delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate from delivery where delivery_id= ? ";
+			System.out.println(query);
+			System.out.println("cDeliveryId :" +cDeliveryId+":");
+					
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, cDeliveryId);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				int delivery_id = resultSet.getInt("delivery_id");
+				int deliveryCo_id = resultSet.getInt("deliveryCo_id");
+				int pId = resultSet.getInt("pId");
+				String cId = resultSet.getString("cId");
+				int oId = resultSet.getInt("oId");
+				Timestamp delivery_initdate = resultSet.getTimestamp("delivery_initdate");
+				Timestamp delivery_enddate = resultSet.getTimestamp("delivery_enddate");
+				
+				System.out.println(delivery_id);
+				System.out.println(deliveryCo_id);
+				System.out.println(pId);
+				System.out.println(cId);
+				System.out.println(oId);
+				System.out.println(delivery_initdate);
+				System.out.println(delivery_enddate);
+				
+				dto = new BDeliveryDto(delivery_id, deliveryCo_id, pId, cId, oId, delivery_initdate, delivery_enddate);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(resultSet != null) resultSet.close();
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	} // Content
 	
-	public void write(String cId, String cPw, String cAddress, String cEmail, String cPhone) {
+	
+	
+	
+	
+	public void write(int deliveryCo_id, int pId, String cId, int oId) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "insert into delivery (cId, cPw, cAddress, cEmail, cPhone, cJoinDate) values (?,?,?,?,?,now())";
+			String query = "insert into delivery (deliveryCo_id, pId, cId, oId , delivery_initdate) values (?,?,?,?,now())";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, cId);
-			preparedStatement.setString(2, cPw);
-			preparedStatement.setString(3, cAddress);
-			preparedStatement.setString(4, cEmail);
-			preparedStatement.setString(5, cPhone);
+			preparedStatement.setInt(1, deliveryCo_id);
+			preparedStatement.setInt(2, pId);
+			preparedStatement.setString(3, cId);
+			preparedStatement.setInt(4, oId);
 			preparedStatement.executeUpdate();
 			
 		}catch (Exception e) {
@@ -152,7 +207,7 @@ public class BDeliveryDao {
 	} //write
 	
 	
-	public void modifyDelivery(int delivery_id, int deliveryCo_id, int pId, String cId, int oId, Timestamp delivery_initdate, Timestamp delivery_enddate) {
+	public void modifyDelivery(int delivery_id, int deliveryCo_id, int pId, String cId, int oId, String delivery_initdate, String delivery_enddate) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -166,8 +221,8 @@ public class BDeliveryDao {
 			preparedStatement.setInt(2, pId);
 			preparedStatement.setString(3, cId);
 			preparedStatement.setInt(4, oId);
-			preparedStatement.setTimestamp(5, delivery_initdate);
-			preparedStatement.setTimestamp(6, delivery_enddate);
+			preparedStatement.setString(5, delivery_initdate);
+			preparedStatement.setString(6, delivery_enddate);
 			preparedStatement.setInt(7, delivery_id);
 			preparedStatement.executeUpdate();
 			
@@ -192,7 +247,7 @@ public class BDeliveryDao {
 		
 		try {
 			connection = dataSource.getConnection();
-			String query = "update from delivery set delivery_enddate=now() where delivery_id=? ";
+			String query = "delete from delivery where delivery_id=? ";
 			preparedStatement = connection.prepareStatement(query);
 
 			preparedStatement.setInt(1, delivery_id);
