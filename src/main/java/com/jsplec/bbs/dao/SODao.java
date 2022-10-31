@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.jsplec.bbs.component.SOrderList;
+import com.jsplec.bbs.component.SOrderPlaceInfoDto;
 import com.jsplec.bbs.dto.SODto;
 
 public class SODao {
@@ -67,35 +68,36 @@ public class SODao {
 		return dtos;
 	}
 	
-//	public void placeSOrders (){
-//		Connection connection = null;
-//		PreparedStatement ps = null;
-//		
-//		try {
-//			connection = dataSource.getConnection();
-//			String query = "insert into sorders (sName, sPhone, sEmail, sInitdate) values (?,?,?,now())";
-//			ps = connection.prepareStatement(query);
-//			
-//			ps.setString(1, sName);
-//			ps.setString(2, sPhone);
-//			ps.setString(3, sEmail);
-//			
-//			ps.executeUpdate();
-//			
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			try {
-//				if(ps != null) ps.close();
-//				if(connection != null) connection.close();
-//				
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
+	public void sOrderPlace(int isId, int isoProduct_pId, int isoQuantity) {
+		Connection connection = null;
+		PreparedStatement ps = null;
 		
-		
-		
+		try {
+			connection = dataSource.getConnection();
+			String query = "insert into sorders (soSupplier_sId, soProduct_pId, soQuantity, soPrice, soSenddate) ";
+			String query2 = "values (?, ?, ?, (select product.pSaleprice/2 where product.pId = ? as soPrice), now())";
+			ps = connection.prepareStatement(query + query2);
+			
+			ps.setInt(1, isId);
+			ps.setInt(2, isoProduct_pId);
+			ps.setInt(3, isoQuantity);
+			ps.setInt(4, isId);
+			
+			ps.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(ps != null) ps.close();
+				if(connection != null) connection.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 		
 	}
 	

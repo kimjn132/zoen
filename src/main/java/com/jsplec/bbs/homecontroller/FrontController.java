@@ -19,6 +19,7 @@ import com.jsplec.bbs.command.SListCommand;
 import com.jsplec.bbs.command.SModifyCommand;
 import com.jsplec.bbs.command.SOListCommand;
 import com.jsplec.bbs.command.SOSListCommand;
+import com.jsplec.bbs.command.SOrderPlaceCommand;
 
 
 
@@ -126,7 +127,10 @@ public class FrontController extends HttpServlet {
 			break;
 			
 		case ("/sorder_place.do"):
-			
+			command = new SOrderPlaceCommand();
+			command.execute(request, response);
+			viewPage = "sorder_main.do";
+			break;
 			
 		}
 		

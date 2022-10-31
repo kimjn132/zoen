@@ -37,27 +37,32 @@ table.center {
 </div>
 </nav>
 
-	<form name="sorder_place.do" action="sorder_place" method="post">
-<div style="width:100%; height:450px; overflow:auto">
+	<form name="sorder_place" action="sorder_place.do" method="post">
+		<div style="width:100%; height:450px; overflow:auto">
 		<table class="table table-dark table-hover center" border="1" style="width:70%">
 			<tr>
-			<th>상품번호</th><th>브랜드</th><th>상품명</th><th>현 재고</th><th>수량</th><th>선택</th>
-		</tr>
-		<c:forEach items="${product_list_check}" var="dto">
-			<tr>
-				<td>${dto.pId}</td>
-				<td>${dto.pBrand}</td>
-				<td>${dto.pName}</td>
-				<td>${dto.pStock}</td>
+			<th>상품번호</th><th>브랜드</th><th>상품명</th><th>사이즈</th><th>현 재고</th><th>수량</th><th>선택</th>
+			</tr>
+				<c:forEach items="${product_list_check}" var="plchk">
+				<tr>
+				
+				<td><c:out value="${plchk.pId}"/></td>
+				<td><c:out value="${plchk.pBrand}"/></td>
+				<td><c:out value="${plchk.pName}"/></td>
+				<td><c:out value="${plchk.pSize}"/></td>
+				<td><c:out value="${plchk.pStock}"/></td>
+				
 				<td><input type="text" name="soQuantity" dir="rtl"></td>
+				
 				<td>
-				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<input class="form-check-input" type="radio" value="" id="flexCheckDefault" name="selectedItems">
 				<label class="form-check-label" for="flexCheckDefault"></label>
 				</td>
-			</tr>
-		</c:forEach>
+				
+				</tr>
+				</c:forEach>
 		</table>
-</div>
+		</div>
 		<br>
 		<br>
 		<input type="submit" value="신청하기">

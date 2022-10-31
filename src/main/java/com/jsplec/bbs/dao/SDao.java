@@ -195,38 +195,9 @@ public class SDao {
 		return dto;
 	}
 	
-	
-//	public void deleteSupplier(int sId) {
-//		PreparedStatement ps = null;
-//		Connection connection = null;
-//		
-//		try {
-//			connection = dataSource.getConnection();
-//			String query = "delete from supplier where sId = ?";
-//
-//			ps = connection.prepareStatement(query);
-//			
-//			ps.setInt(1, sId);
-//			ps.executeUpdate();
-//			
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			try {
-//				if(ps != null) ps.close();
-//				if(connection != null) connection.close();
-//				
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//	
-//	}
-	
 	public void deleteSupplier(int sId) {
 		PreparedStatement ps = null;
 		Connection connection = null;
-		
 		try {
 			connection = dataSource.getConnection();
 			String query = "update supplier set sEnddate = now() where sId = ?";
@@ -249,5 +220,35 @@ public class SDao {
 			}
 		}
 	}
-
+	
+	public int getSupplierId(String pBrand) {
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int sId = 0;
+		
+		try {
+			connection = dataSource.getConnection();
+			String query = "select sId from supplier where sName = '" + pBrand + "' and sEnddate is null";
+			
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				sId = rs.getInt("sId");
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(ps != null) ps.close();
+				if(connection != null) connection.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return sId;
+	}
 }

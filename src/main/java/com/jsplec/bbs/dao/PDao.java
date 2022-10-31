@@ -32,7 +32,7 @@ public class PDao {
 		
 		try {
 			connection = dataSource.getConnection();
-			String query = "select pId, pBrand, pName, pStock from product where pBrand = '" + sName + "' order by pId";
+			String query = "select pId, pBrand, pName, pSize, pStock from product where pBrand = '" + sName + "' order by pId";
 			ps = connection.prepareStatement(query);
 			rs = ps.executeQuery();
 			
@@ -40,9 +40,10 @@ public class PDao {
 				int pId = rs.getInt("pId");
 				String pBrand = rs.getString("pBrand");
 				String pName = rs.getString("pName");
+				String pSize = rs.getString("pSize");
 				int pStock = rs.getInt("pStock");
 				
-				PDto dto = new PDto(pId, pBrand, pName, pStock);
+				PDto dto = new PDto(pId, pBrand, pName, pSize, pStock);
 				dtos.add(dto);
 			}
 			

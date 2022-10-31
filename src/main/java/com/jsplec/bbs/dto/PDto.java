@@ -2,6 +2,7 @@ package com.jsplec.bbs.dto;
 
 public class PDto {
 
+
 	int pId;
 	String pName;
 	String pColor;
@@ -30,6 +31,14 @@ public class PDto {
 		this.pStock = pStock;
 	}
 
+	public PDto(int pId, String pBrand, String pName, String pSize, int pStock) {
+		super();
+		this.pId = pId;
+		this.pBrand = pBrand;
+		this.pName = pName;
+		this.pSize = pSize;
+		this.pStock = pStock;
+	}
 	
 	public PDto(int pId, String pBrand, String pName, int pStock) {
 		super();
