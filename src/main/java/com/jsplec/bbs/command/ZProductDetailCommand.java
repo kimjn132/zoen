@@ -1,11 +1,15 @@
+
 package com.jsplec.bbs.command;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.jsplec.bbs.dao.ZDao;
 import com.jsplec.bbs.dto.ZDto;
+
 
 public class ZProductDetailCommand implements ZCommand {
 
@@ -23,6 +27,7 @@ public class ZProductDetailCommand implements ZCommand {
 		
 		
 		
+
 		String cId = (String)session.getAttribute("CID");
 		//ZDao dao = new ZDao();
 		ZDto dto2 = dao.customer(cId);
@@ -30,6 +35,7 @@ public class ZProductDetailCommand implements ZCommand {
 		request.setAttribute("customer", dto2);
 		
 		
+
 	}
 
 }
