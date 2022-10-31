@@ -23,6 +23,11 @@ import com.jsplec.bss.command.BInsertDeliveryCommand;
 import com.jsplec.bss.command.BLoginCommand;
 import com.jsplec.bss.command.BModifyCustomerCommand;
 import com.jsplec.bss.command.BModifyDeliveryCommand;
+import com.jsplec.bss.command.BProductAddCommand;
+import com.jsplec.bss.command.BProductDeleteCommand;
+import com.jsplec.bss.command.BProductListjCommand;
+import com.jsplec.bss.command.BProductModifyCommand;
+import com.jsplec.bss.command.BProductViewCommand;
 import com.jsplec.bss.command.ZCommand;
 import com.jsplec.bss.command.ZCustomerCommand;
 import com.jsplec.bss.command.ZOrderCommand;
@@ -78,7 +83,8 @@ public class ZFrontController extends HttpServlet {
 		String com = uri.substring(conPath.length());
 
 		switch (com) {
-		case ("/list.do"):
+	//주현---------
+  case ("/list.do"):
 			command = new ZProductListCommand();
 			command.execute(request, response);
 			viewPage = "ProductList.jsp";
@@ -105,6 +111,11 @@ public class ZFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "Home.jsp";
 			break;
+      
+//주현------------
+
+
+//상혁 --------------
 		/*
 		 * // 입력 화면 띄우기 case("/write_viewCustomer.do"):
 		 * System.out.println("doViewWriteCustomer"); viewPage =
@@ -166,6 +177,41 @@ public class ZFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "listCustomer.do";
 			break;
+      
+ //상혁----------
+
+		//상준	-------
+		case("/productlistj.do"): 
+			command = new BProductListjCommand();
+			command.execute(request, response);
+			viewPage = "productListj.jsp";
+			break;
+		
+		
+			case("/productadd.do"): 
+			command = new BProductAddCommand();
+			command.execute(request, response);
+			viewPage="productlistj.do";
+			break;
+		
+			case("/productview.do"): 
+			command = new BProductViewCommand();
+			command.execute(request, response);
+			viewPage="productView.jsp";
+			break;
+		
+			case("/productdelete.do"):
+			command = new BProductDeleteCommand();
+			command.execute(request, response);
+			viewPage="productlistj.do";
+			break;
+		
+			case("/productmodify.do"): 
+			command = new BProductModifyCommand();
+			command.execute(request, response);
+			viewPage="productlistj.do";	
+			break;
+//상준-------
 		
 			
 			
@@ -219,6 +265,7 @@ public class ZFrontController extends HttpServlet {
 			
 			
 			
+
 
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
