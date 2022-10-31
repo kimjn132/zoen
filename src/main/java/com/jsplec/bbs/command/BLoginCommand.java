@@ -1,11 +1,15 @@
+
 package com.jsplec.bbs.command;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.jsplec.bbs.dao.BCustomerDao;
 import com.jsplec.bbs.dto.BCustomerDto;
+
 
 public class BLoginCommand implements ZCommand {
 
@@ -19,7 +23,9 @@ public class BLoginCommand implements ZCommand {
 		if(dao.login(cId,cPw)) {
 		
 			HttpSession session = request.getSession();
+
 			session.setAttribute("CID", cId);
+
 			//session.setAttribute("", session);
 		}
 

@@ -1,12 +1,16 @@
-package com.jsplec.bss.command;
+
+package com.jsplec.bbs.command;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsplec.bss.dao.BProductDao;
-import com.jsplec.bss.dto.BProductDto;
 
-public class BProductViewCommand implements BCommand {
+import com.jsplec.bbs.dao.BProductDao;
+import com.jsplec.bbs.dto.BProductDto;
+
+
+public class BProductViewCommand implements ZCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
